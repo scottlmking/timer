@@ -6,7 +6,45 @@
     </head>
     <body>
         <h1>Seconds Count Down</h1>
+        <form>
+            <label for="hours">Hours: </label>
+            <!-- <select name="hours" id="hoursSelect"></select> -->
+            <input
+                name="hours"
+                id="hoursInput"
+                type="number"
+                min="0"
+                max="20"
+                step="1"
+                value="0"
+            />
+            <label for="minutes">Minutes: </label>
+            <!-- <select name="minutes" id="minutesSelect"></select> -->
+            <input
+                name="minutes"
+                id="minutesInput"
+                type="number"
+                min="0"
+                max="59"
+                step="1"
+                value="1"
+            />
+            <label for="seconds">Seconds: </label>
+            <!-- <select name="seconds" id="secondsSelect"></select> -->
+            <input
+                name="seconds"
+                id="secondsInput"
+                type="number"
+                min="0"
+                max="59"
+                step="1"
+                value="30"
+            />
+            <br /><br />
+            <input type="button" value="Start" id="startButton" />
+        </form>
         <p id="timerDisplay"></p>
+
         <script src="timer.js"></script>
     </body>
 </html>
