@@ -1,7 +1,9 @@
 const SECONDS_IN_HOUR = 3600;
 const SECONDS_IN_MINUTE = 60;
+const DEFAULT_SECONDS = 5;
 
 let timerDisplay = document.getElementById("timerDisplay");
+let timerStatus = document.getElementById("timerStatus");
 
 let hoursInput = document.getElementById("hoursInput");
 let minutesInput = document.getElementById("minutesInput");
@@ -12,11 +14,12 @@ let secondsRemaining;
 
 let startButton = document.getElementById("startButton");
 let pauseButton = document.getElementById("pauseButton");
+let resetButton = document.getElementById("resetButton");
 
 let isPaused = false;
 
-// display time left
-timerDisplay.innerHTML = formatTime(0);
+// default time to count down from when page is loaded
+timerDisplay.innerHTML = formatTime(DEFAULT_SECONDS);
 
 function countDown() {
     // decrease timer
@@ -32,8 +35,13 @@ function countDown() {
         // clear interval
         clearInterval(timerInterval);
 
+        // disable start and pause buttons
+        startButton.disabled = true;
+        pauseButton.disabled = true;
+        resetButton.disabled = false;
+
         // set timer status message
-        document.getElementById("timerStatus").innerHTML = "DONE!";
+        timerStatus.innerHTML = "DONE!";
     }
 }
 
@@ -69,6 +77,11 @@ startButton.onclick = function () {
     isPaused = false;
     this.disabled = true;
     pauseButton.disabled = false;
+    resetButton.disabled = false;
+
+    hoursInput.disabled = true;
+    minutesInput.disabled = true;
+    secondsInput.disabled = true;
 };
 
 pauseButton.onclick = function () {
@@ -76,4 +89,27 @@ pauseButton.onclick = function () {
     isPaused = true;
     this.disabled = true;
     startButton.disabled = false;
+    resetButton.disabled = false;
+};
+
+resetButton.onclick = function () {
+    clearInterval(timerInterval);
+
+    let hours = parseInt(hoursInput.value, 10);
+    let minutes = parseInt(minutesInput.value, 10);
+    let seconds = parseInt(secondsInput.value, 10);
+
+    secondsRemaining = toSeconds(hours, minutes, seconds);
+    timerDisplay.innerHTML = formatTime(secondsRemaining);
+
+    this.disabled = true;
+    startButton.disabled = false;
+    pauseButton.disabled = true;
+
+    // clear the status message
+    timerStatus.innerHTML = "";
+
+    hoursInput.disabled = false;
+    minutesInput.disabled = false;
+    secondsInput.disabled = false;
 };

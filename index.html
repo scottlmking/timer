@@ -8,7 +8,6 @@
         <h1>Timer</h1>
         <form>
             <label for="hours">Hours: </label>
-            <!-- <select name="hours" id="hoursSelect"></select> -->
             <input
                 name="hours"
                 id="hoursInput"
@@ -19,7 +18,6 @@
                 value="0"
             />
             <label for="minutes">Minutes: </label>
-            <!-- <select name="minutes" id="minutesSelect"></select> -->
             <input
                 name="minutes"
                 id="minutesInput"
@@ -27,10 +25,9 @@
                 min="0"
                 max="59"
                 step="1"
-                value="1"
+                value="0"
             />
             <label for="seconds">Seconds: </label>
-            <!-- <select name="seconds" id="secondsSelect"></select> -->
             <input
                 name="seconds"
                 id="secondsInput"
@@ -38,11 +35,12 @@
                 min="0"
                 max="59"
                 step="1"
-                value="30"
+                value="5"
             />
             <br /><br />
             <input type="button" value="Start" id="startButton" />
             <input type="button" value="Pause" id="pauseButton" disabled />
+            <input type="button" value="Reset" id="resetButton" disabled />
         </form>
         <p id="timerDisplay"></p>
         <p id="timerStatus"></p>
