@@ -5,25 +5,10 @@ let minutesInput = document.getElementById("minutesInput");
 let secondsInput = document.getElementById("secondsInput");
 
 let timerInterval;
-
-document.getElementById("startButton").onclick = function () {
-    startInterval();
-};
-
-// variables that will eventually be input by user
-var hours = 0;
-var minutes = 1;
-var seconds = 30;
-
-//loadSelects();
-
-// convert minutesLeft and secondsLeft to seconds
-var secondsLeft = toSeconds(hours, minutes, seconds);
+let secondsLeft;
 
 // display time left
-timerDisplay.innerHTML = formatTime(secondsLeft);
-
-timerInterval = setInterval(countDown, 1000);
+timerDisplay.innerHTML = formatTime(0);
 
 function countDown() {
     // decrease timer
@@ -55,22 +40,13 @@ function toSeconds(hours, minutes, seconds) {
     return hours * 3600 + minutes * 60 + seconds;
 }
 
-// function loadSelects() {
-//     for (var i = 0; i < 60; ++i) {
-//         hoursSelect[i] = new Option(i, i);
-//         minutesSelect[i] = new Option(i, i);
-//         secondsSelect[i] = new Option(i, i);
-//     }
-// }
+document.getElementById("startButton").onclick = function () {
+    let hours = parseInt(hoursInput.value, 10);
+    let minutes = parseInt(minutesInput.value, 10);
+    let seconds = parseInt(secondsInput.value, 10);
 
-// TODO: get values from inputs, then start the timer
-function startInterval() {
-    // start interval
-    hours = parseInt(hoursInput.value, 10);
-    minutes = parseInt(minutesInput.value, 10);
-    seconds = parseInt(secondsInput.value, 10);
+    secondsLeft = toSeconds(hours, minutes, seconds);
+    timerDisplay.innerHTML = formatTime(secondsLeft);
 
-    console.log(hours + " " + minutes + " " + seconds);
-
-    var timerInterval = setInterval(countDown, 1000);
-}
+    timerInterval = setInterval(countDown, 1000);
+};
