@@ -1,3 +1,6 @@
+const SECONDS_IN_HOUR = 3600;
+const SECONDS_IN_MINUTE = 60;
+
 let timerDisplay = document.getElementById("timerDisplay");
 
 let hoursInput = document.getElementById("hoursInput");
@@ -5,48 +8,72 @@ let minutesInput = document.getElementById("minutesInput");
 let secondsInput = document.getElementById("secondsInput");
 
 let timerInterval;
-let secondsLeft;
+let secondsRemaining;
+
+let startButton = document.getElementById("startButton");
+let pauseButton = document.getElementById("pauseButton");
+
+let isPaused = false;
 
 // display time left
 timerDisplay.innerHTML = formatTime(0);
 
 function countDown() {
     // decrease timer
-    secondsLeft--;
+    secondsRemaining--;
 
-    if (secondsLeft >= 0) {
+    if (secondsRemaining > 0) {
         // display time left
-        timerDisplay.innerHTML = formatTime(secondsLeft);
+        timerDisplay.innerHTML = formatTime(secondsRemaining);
     } else {
+        // display all 0s
+        timerDisplay.innerHTML = formatTime(secondsRemaining);
+
         // clear interval
         clearInterval(timerInterval);
+
+        // set timer status message
+        document.getElementById("timerStatus").innerHTML = "DONE!";
     }
 }
 
-function formatTime(secondsLeft) {
-    var hours = Math.floor(secondsLeft / 3600);
-    var secondsRemaining = secondsLeft - hours * 3600;
-    var minutes = Math.floor(secondsRemaining / 60);
-    var seconds = secondsRemaining % 60;
+function formatTime(secondsRemaining) {
+    let hours = Math.floor(secondsRemaining / SECONDS_IN_HOUR);
+    let secondsWithoutHours = secondsRemaining - hours * SECONDS_IN_HOUR;
+    let minutes = Math.floor(secondsWithoutHours / 60);
+    let seconds = secondsWithoutHours % 60;
 
-    var hoursStr = hours < 10 ? "0" + hours : hours;
-    var minutesStr = minutes < 10 ? "0" + minutes : minutes;
-    var secondsStr = seconds < 10 ? "0" + seconds : seconds;
+    let hoursStr = hours < 10 ? "0" + hours : hours;
+    let minutesStr = minutes < 10 ? "0" + minutes : minutes;
+    let secondsStr = seconds < 10 ? "0" + seconds : seconds;
 
     return hoursStr + ":" + minutesStr + ":" + secondsStr;
 }
 
 function toSeconds(hours, minutes, seconds) {
-    return hours * 3600 + minutes * 60 + seconds;
+    return hours * SECONDS_IN_HOUR + minutes * SECONDS_IN_MINUTE + seconds;
 }
 
-document.getElementById("startButton").onclick = function () {
-    let hours = parseInt(hoursInput.value, 10);
-    let minutes = parseInt(minutesInput.value, 10);
-    let seconds = parseInt(secondsInput.value, 10);
+startButton.onclick = function () {
+    if (!isPaused) {
+        let hours = parseInt(hoursInput.value, 10);
+        let minutes = parseInt(minutesInput.value, 10);
+        let seconds = parseInt(secondsInput.value, 10);
 
-    secondsLeft = toSeconds(hours, minutes, seconds);
-    timerDisplay.innerHTML = formatTime(secondsLeft);
+        secondsRemaining = toSeconds(hours, minutes, seconds);
+        timerDisplay.innerHTML = formatTime(secondsRemaining);
+    }
 
     timerInterval = setInterval(countDown, 1000);
+
+    isPaused = false;
+    this.disabled = true;
+    pauseButton.disabled = false;
+};
+
+pauseButton.onclick = function () {
+    clearInterval(timerInterval);
+    isPaused = true;
+    this.disabled = true;
+    startButton.disabled = false;
 };
