@@ -1,0 +1,27 @@
+/* mobile first */
+body {
+    margin: 0;
+    font: 100%/1.5 Arial, Helvetica, sans-serif;
+}
+
+#wrap {
+    margin: 0 auto;
+    width: 50%;
+    text-align: center;
+}
+
+h1 {
+    font-size: 5em;
+}
+
+label {
+}
+
+input[type="number"] {
+}
+
+p {
+}
+
+#inputForm {
+}

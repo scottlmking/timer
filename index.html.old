@@ -12,7 +12,7 @@
             </header>
 
             <main>
-                <!-- <form id="inputForm">
+                <form id="inputForm">
                     <label for="hoursInput">Hours: </label>
                     <input
                         id="hoursInput"
@@ -54,11 +54,10 @@
                         id="resetButton"
                         disabled
                     />
-                </form> -->
+                </form>
 
                 <div id="container">
-                    <p id="timerDisplay" contenteditable="true">5:00</p>
-                    <button type="button" id="startButton">Start</button>
+                    <p id="timerDisplay"></p>
                     <p id="statusMessage"></p>
                 </div>
             </main>
